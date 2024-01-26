@@ -36,7 +36,6 @@ public class PreviewSystem : MonoBehaviour
         if(size.x > 0 || size.y > 0)
         {
             cellIndicator.transform.localScale = new Vector3(size.x, 1, size.y);
-            cellIndicatorRenderer.material.mainTextureScale = size;
         }
     }
 
@@ -61,7 +60,7 @@ public class PreviewSystem : MonoBehaviour
             Destroy(previewObject );
     }
 
-    public void UpdatePosition(Vector3 position, bool validity)
+    public void UpdatePosition(Vector3 position, Vector3 offset, bool validity)
     {
         if(previewObject != null)
         {
@@ -70,7 +69,7 @@ public class PreviewSystem : MonoBehaviour
 
         }
 
-        MoveCursor(position);
+        MoveCursor(position + offset);
         ApplyFeedbackToCursor(validity);
     }
 
