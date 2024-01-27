@@ -72,7 +72,7 @@ public class StateMachine
     /// <param name="id">需要转换到的目标状态ID</param>
     public void ChangeState(StateID id)
     {
-        if (id == CurrentStateID) return;
+        if (id == CurrentStateID) return;//和之前状态相同之前退出
         if (!m_StateMap.ContainsKey(id))
         {
             Debug.LogErrorFormat("状态ID:{0}不存在！", id);

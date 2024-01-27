@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.State;
 using UnityEngine;
 
 public class SLaugh : SSettled
@@ -12,9 +13,15 @@ public class SLaugh : SSettled
     public override void OnEnter()
     {
         base.OnEnter();
-        Debug.Log("Laugh");
-        //更新周围的和自身的改变因子
-        pm.changeEffectFactors(2f);
-        //pm.attributes.effectFactors += 2;
+        Debug.Log("Laughing Enter");
+    }
+
+    public override void Check()
+    {
+        base.Check();
+        if (pm.attributes.mood <= 70)
+        {
+            sm.ChangeState(StateID.Normal);
+        }
     }
 }

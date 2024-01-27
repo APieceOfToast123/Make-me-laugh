@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Scripts.State;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SSelectable : BasicState
 {
@@ -51,7 +52,14 @@ public class SSelectable : BasicState
         if (dragging && Input.GetMouseButtonUp(0))
         {
             dragging = false;
-            sm.ChangeState(StateID.Laugh);
+            sm.ChangeState(StateID.Normal);            //进入Normal之后判断转态
         }
+    }
+
+    public override void OnExit()
+    {
+        base.OnExit();
+        EventManager.CallAddSettledOne(sm.OwnerGo.GetComponent<PaientManager>());
+        EventManager.CallFirstOneSetteld();
     }
 }
