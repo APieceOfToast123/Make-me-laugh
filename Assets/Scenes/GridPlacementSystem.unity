@@ -852,6 +852,32 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &380931103 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5133798985777510251, guid: 1165ebe01fe6448c5993c693eb3bc884,
+    type: 3}
+  m_PrefabInstance: {fileID: 1614776612}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &380931104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380931103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34d7989b68064015b83989f8181b566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attributes:
+    radius: 0
+    treatEffect: 0
+  PatientLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  GameManager: {fileID: 443147001}
+  originalPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &397490026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,6 +2568,78 @@ Transform:
   - {fileID: 2129336895}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1614776612
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 604645194964755120, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133798985777510251, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      propertyPath: m_Name
+      value: Doctor
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5133798985777510251, guid: 1165ebe01fe6448c5993c693eb3bc884,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 380931104}
+  m_SourcePrefab: {fileID: 100100000, guid: 1165ebe01fe6448c5993c693eb3bc884, type: 3}
 --- !u!1 &1646722639 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3706936160302216349, guid: 1a58cd6aa9af4a348a27868ec16a4596,
@@ -3649,3 +3747,4 @@ SceneRoots:
   - {fileID: 866711936}
   - {fileID: 6249937486839533171}
   - {fileID: 1217798793}
+  - {fileID: 1614776612}

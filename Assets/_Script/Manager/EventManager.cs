@@ -12,6 +12,9 @@ public static class EventManager
     public static Action FirstOneSettled;
     //public static Func<Transform, float, PaientManager[]> EffectCheck;
     public static Action CheckEffect;
+    public static Action<PaientManager> AddDoctor;
+    public static Action<PaientManager> DeleteSettledOne;
+    
     public static void CallAddSettledOne(PaientManager settledOne)
     {
         AddSettledOne?.Invoke(settledOne);
@@ -21,15 +24,23 @@ public static class EventManager
         FirstOneSettled?.Invoke();
     }
 
+    // public static void CallAddDoctor(PaientManager treatingTarget)
+    // {
+    //     AddDoctor?.Invoke(treatingTarget);
+    // }
+
     // public static PaientManager[] CallEffectCheck(Transform center, float radius)
     // {
     //     return EffectCheck?.Invoke(center, radius);
     // }
     
-
-
     public static void CallCheckEffect()
     {
         CheckEffect?.Invoke();
+    }
+
+    public static void CallDeleteSettledOne(PaientManager settledOne)
+    {
+        DeleteSettledOne?.Invoke(settledOne);
     }
 }

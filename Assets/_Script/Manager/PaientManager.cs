@@ -5,38 +5,44 @@ using _Scripts.State;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class PaientManager : MonoBehaviour
 {
-    public Attributes attributes;
+    [FormerlySerializedAs("attributes")] 
+    public PatientAttributes patientAttributes;
     public LayerMask layermask;
-    private PaientSM sm;
+    public PatientSM sm;
     
-    public event Action<PaientManager> OnStateChanged;
     //TODO: 改写成系统自动检测到GM
     public GameManager GameManager;
-    
-    [Header("=========Change mood setting=========")]
-    [SerializeField]private float changeInterval;//修改心情的间隔时间
-    [SerializeField]private float currentChangeAmount;//每次修改心情的数量
+    //public Draggable Draggable;
+
+    public float treatingForce;
+    public DoctorManager TreatingDoctor;
     
     private void Awake()
     {
-        attributes = new Attributes();
+        //TODO:目前方便测试，后续改回来
+        //patientAttributes = new PatientAttributes();
         // if (m_SendThisToGM == null)
         //     m_SendThisToGM = new UnityEvent<Transform>();
         // m_SendThisToGM.AddListener(GameManager);
 
         //新建状态机
-        sm = new PaientSM(this.gameObject);
+        sm = new PatientSM(this.gameObject);
         
         //为状态机添加状态，第一个被添加的状态被视为初始状态
-        sm.AddState(StateID.Seletable,new SSelectable(sm));
+        sm.AddState(StateID.Selectable,new SSelectable(sm));
         sm.AddState(StateID.Settled,new SSettled("Settled",sm));
         sm.AddState(StateID.Laugh,new SLaugh(sm));
         sm.AddState(StateID.Cry,new SCry(sm));
         sm.AddState(StateID.Normal,new SNormal(sm));
-        
+        sm.AddState(StateID.fail,new SFail(sm));
+        sm.AddState(StateID.Complete,new SComplete(sm));
+
+
+        treatingForce = 0f;
     }
     private void Update()
     {
@@ -45,7 +51,7 @@ public class PaientManager : MonoBehaviour
     }
     public void changeMood(float changeMood)
     {
-        attributes.mood += changeMood;
+        patientAttributes.mood += changeMood;
     }
 
     /// <summary>
@@ -58,25 +64,34 @@ public class PaientManager : MonoBehaviour
         switch (sm.CurrentStateID)
         {
             case StateID.Laugh:
-                radius = attributes.laughRadius;
+                radius = patientAttributes.laughRadius;
                 break;
             case StateID.Cry:
-                radius = attributes.cryRadius;
+                radius = patientAttributes.cryRadius;
                 break;
             default:
                 radius = 0f;
-                Debug.Log("Not valid effect check");
+                //Debug.Log("Not valid effect check");
                 break;
         }
         
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layermask);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, layermask);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.GetComponent<PaientManager>() != null)
             {
-                hitCollider.GetComponent<PaientManager>().attributes.tickEffectAmount += this.attributes.effectFactors;
+                hitCollider.GetComponent<PaientManager>().patientAttributes.tickEffectAmount += this.patientAttributes.effectFactors;
             }
         }
+
+        this.patientAttributes.tickEffectAmount += treatingForce;
+    }
+
+    public bool CheckStateID(StateID checkState)
+    {
+        if (sm.CurrentStateID.Equals(checkState))
+            return true;
+        return false;
     }
 
     /// <summary>
@@ -84,9 +99,29 @@ public class PaientManager : MonoBehaviour
     /// </summary>
     public void TickChangeCurrentCount()
     {
-        attributes.mood += attributes.tickEffectAmount;
+        patientAttributes.mood += (patientAttributes.tickEffectAmount+treatingForce);
     }
 
+    //TODO:以后有空绝对要升级
+    /// <summary>
+    /// 清空自身的TreatForce
+    /// </summary>
+    public void ClearTreatForce()
+    {
+        treatingForce = 0f;
+        if (TreatingDoctor != null)
+        {
+            TreatingDoctor.lastTimeVaildHit = null;
+            TreatingDoctor = null;
+        }
+        
+        
+    }
+
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
+    }
 
     void OnGUI()
     {
@@ -98,7 +133,7 @@ public class PaientManager : MonoBehaviour
         screenPosition.y += 10; // 在角色的正上方 10 像素处显示
     
         // 绘制 GUI 文本
-        GUI.Label(new Rect(screenPosition.x, screenPosition.y - 25, 100, 50), "Mood: " + attributes.mood);
+        GUI.Label(new Rect(screenPosition.x, screenPosition.y - 25, 100, 50), "Mood: " + patientAttributes.mood);
     
         if (sm.CurrentState != null)
         {
@@ -110,9 +145,9 @@ public class PaientManager : MonoBehaviour
     {
         // 在编辑器中显示效果范围
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attributes.laughRadius);
+        Gizmos.DrawWireSphere(transform.position, patientAttributes.laughRadius);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, attributes.cryRadius);
+        Gizmos.DrawWireSphere(transform.position, patientAttributes.cryRadius);
     }
 
 }

@@ -33,6 +33,7 @@ public class GameManager : StaticInstance<GameManager> {
         //添加监听事件
         EventManager.AddSettledOne += (manager) => SettledPaients.Add(manager);
         EventManager.CheckEffect += CheckEffect;
+        EventManager.DeleteSettledOne += (manager) => SettledPaients.RemoveAt(SettledPaients.IndexOf(manager));
         
         //只在第一个被放入的时候执行
         EventManager.FirstOneSettled += () =>
@@ -47,6 +48,7 @@ public class GameManager : StaticInstance<GameManager> {
     {
         EventManager.AddSettledOne -= (manager) => SettledPaients.Add(manager);
         EventManager.CheckEffect -= CheckEffect;
+        EventManager.DeleteSettledOne += (manager) => SettledPaients.RemoveAt(SettledPaients.IndexOf(manager));
     }
     
     /// <summary>
@@ -88,7 +90,7 @@ public class GameManager : StaticInstance<GameManager> {
     {
         foreach (var VARIABLE in SettledPaients)
         {
-            VARIABLE.attributes.tickEffectAmount = 0;
+            VARIABLE.patientAttributes.tickEffectAmount = 0;
         }
         foreach (var VARIABLE in SettledPaients)
         {
