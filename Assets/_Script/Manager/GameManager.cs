@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Nice, easy to understand enum-based game manager. For larger and more complex games, look into
@@ -12,19 +13,34 @@ using UnityEngine.Events;
 public class GameManager : StaticInstance<GameManager> {
     public static event Action<GameState> OnBeforeStateChanged;
     public static event Action<GameState> OnAfterStateChanged;
-
-    public static List<PaientManager> Paients;//管理生成的Paient列表
     private Coroutine moodCoroutine;//协程
+    
+    [FormerlySerializedAs("Paients")] [Header("========== Units ==========")]
+    public List<GameObject> Patients;
+    public List<GameObject> Doctors;
 
     
-    [Header("=========Change mood setting=========")]
-    [SerializeField]private float changeInterval = .2f;//修改心情的间隔时间
-    public List<PaientManager> SettledPaients;
+    [Header("========== Change mood setting  ==========")]
+    [SerializeField]private float changeInterval = .5f;//修改心情的间隔时间
+    private List<PaientManager> SettledPaients = new List<PaientManager>();
+
+    [Header("========== Prefabs ==========")] 
+    [SerializeField]private GameObject DocPrefab;
+    [SerializeField]private GameObject PatPrefab;
+
+    private bool isRoundingComplete;
+    
+    public int RoundCount { get; private set; }
+
+    public void IncrementRound() {
+        RoundCount++;
+    }
+
 
     public GameState State { get; private set; }
 
     // Kick the game off with the first state
-    //void Start() => ChangeState(GameState.Starting);
+    void Start() => ChangeState(GameState.Starting);
 
     
     //订阅事件
@@ -97,6 +113,70 @@ public class GameManager : StaticInstance<GameManager> {
             VARIABLE.changeEffectFactors();
         }
     }
+    
+    GameObject CreateUnit(GameObject prefab)
+    {
+        if (prefab == null)
+        {
+            Debug.Log("No valid prefab");
+            return null;
+        }
+        else
+        {
+            GameObject instance = Instantiate(prefab);
+            instance.transform.position = new Vector3(0, 0, 0); // 设置实例的位置
+            return instance;
+        }
+    }
+
+    public void CompleteRounding()
+    {
+        if (State == GameState.Rounding)
+        {
+            isRoundingComplete = true;
+        }
+    }
+
+    /// <summary>
+    /// 倒计时x秒
+    /// </summary>
+    private IEnumerator CountdownCoroutine(int duration)
+    {
+        int remainingTime = duration;
+        while (remainingTime > 0)
+        {
+            Debug.Log("Remaining time: " + remainingTime + " seconds");
+            yield return new WaitForSeconds(1);
+            remainingTime--;
+        }
+        // 当倒计时结束时，执行一些操作，比如改变游戏状态
+        ChangeState(GameState.Rounding);
+    }
+    
+    /// <summary>
+    /// 每隔一段时间放置一个角色
+    /// </summary>
+    private IEnumerator SpawnCharactersPeriodically(GameObject characterPrefab, float interval)
+    {
+        while (State == GameState.Running)
+        {
+            Patients.Add(CreateUnit(characterPrefab));
+            yield return new WaitForSeconds(interval);
+        }
+    }
+    
+    /// <summary>
+    /// 等待直到isRoundingComlete
+    /// </summary>
+    private IEnumerator WaitForRoundingComplete()
+    {
+        Debug.Log("Rounding started, waiting for completion...");
+        yield return new WaitUntil(() => isRoundingComplete);
+        Debug.Log("Rounding completed.");
+
+        // Rounding 完成后的逻辑，例如改变游戏状态
+        ChangeState(GameState.Running);
+    }
 
     public void ChangeState(GameState newState) {
         OnBeforeStateChanged?.Invoke(newState);
@@ -106,11 +186,11 @@ public class GameManager : StaticInstance<GameManager> {
             case GameState.Starting:
                 HandleStarting();
                 break;
-            case GameState.SpawningHeroes:
-                HandleSpawningHeroes();
+            case GameState.Running:
+                HandleRunning();
                 break;
-            case GameState.SpawningEnemies:
-                HandleSpawningEnemies();
+            case GameState.Rounding:
+                HandleRounding();
                 break;
             case GameState.HeroTurn:
                 HandleHeroTurn();
@@ -131,22 +211,26 @@ public class GameManager : StaticInstance<GameManager> {
     }
 
     private void HandleStarting() {
-        //Debug.Log("1");
         
-        ChangeState(GameState.SpawningHeroes);
+        //放置本游戏的Doctor
+        Doctors.Add(CreateUnit(DocPrefab));
+        
+        
+        //开始游戏流程
+        ChangeState(GameState.Running);
     }
 
-    private void HandleSpawningHeroes() {
-        //ExampleUnitManager.Instance.SpawnHeroes();
-        
-        ChangeState(GameState.SpawningEnemies);
+    private void HandleRunning() {
+        //StopAllCoroutines();
+        isRoundingComplete = false;
+        StartCoroutine(CountdownCoroutine(3)); // 启动30秒的倒计时
+        StartCoroutine(SpawnCharactersPeriodically(PatPrefab, 5f));
     }
 
-    private void HandleSpawningEnemies() {
-        
-        // Spawn enemies
-        
-        ChangeState(GameState.HeroTurn);
+    private void HandleRounding()
+    {
+        StopAllCoroutines();
+        StartCoroutine(WaitForRoundingComplete());
     }
 
     private void HandleHeroTurn() {
@@ -165,8 +249,8 @@ public class GameManager : StaticInstance<GameManager> {
 [Serializable]
 public enum GameState {
     Starting = 0,
-    SpawningHeroes = 1,
-    SpawningEnemies = 2,
+    Running = 1,
+    Rounding = 2,
     HeroTurn = 3,
     EnemyTurn = 4,
     Win = 5,

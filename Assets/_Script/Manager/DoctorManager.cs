@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-public class DoctorManager : MonoBehaviour
+public class DoctorManager : UnitManager
 {
     [Header("========== 医生属性 ==========")]
     public DoctorAttributes attributes;
@@ -15,7 +15,7 @@ public class DoctorManager : MonoBehaviour
     private DoctorSM sm;
     
     //TODO: 改写成系统自动检测到GM
-    public GameManager GameManager;
+    //public GameManager GameManager;
     public Vector3 originalPosition;
 
     [SerializeField]private Collider[] hitColliders;
@@ -29,6 +29,7 @@ public class DoctorManager : MonoBehaviour
         //TODO:目前方便测试，后续改回来
         //attributes = new DoctorAttributes();
 
+        base.HandleAfterStarting();
         //新建状态机
         sm = new DoctorSM(this.gameObject);
         
@@ -41,6 +42,7 @@ public class DoctorManager : MonoBehaviour
 
         firstVaildHit = null;
     }
+    
     private void Update()
     {
         if (sm.CurrentState != null)

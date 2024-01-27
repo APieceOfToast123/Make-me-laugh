@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 604645194964755120}
   - component: {fileID: 8081074439719178805}
+  - component: {fileID: 1801668881582894554}
   m_Layer: 6
   m_Name: Doctor
   m_TagString: Untagged
@@ -137,3 +138,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1801668881582894554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5133798985777510251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34d7989b68064015b83989f8181b566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attributes:
+    radius: 0
+    treatEffect: 0
+  PatientLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  GameManager: {fileID: 0}
+  originalPosition: {x: 0, y: 0, z: 0}
+  hitColliders: []
+  firstVaildHit: {fileID: 0}
+  lastTimeVaildHit: {fileID: 0}
+  posOffset: {x: 0, y: 0, z: 0}

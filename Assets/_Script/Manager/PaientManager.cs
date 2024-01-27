@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-public class PaientManager : MonoBehaviour
+public class PaientManager : UnitManager
 {
     [FormerlySerializedAs("attributes")] 
     public PatientAttributes patientAttributes;
@@ -15,7 +15,7 @@ public class PaientManager : MonoBehaviour
     public PatientSM sm;
     
     //TODO: 改写成系统自动检测到GM
-    public GameManager GameManager;
+    //
     //public Draggable Draggable;
 
     public float treatingForce;
@@ -23,12 +23,14 @@ public class PaientManager : MonoBehaviour
     
     private void Awake()
     {
+        Debug.Log("Awake");
         //TODO:目前方便测试，后续改回来
         //patientAttributes = new PatientAttributes();
         // if (m_SendThisToGM == null)
         //     m_SendThisToGM = new UnityEvent<Transform>();
         // m_SendThisToGM.AddListener(GameManager);
 
+        //GameManager.OnBeforeStateChanged += OnStateChanged;
         //新建状态机
         sm = new PatientSM(this.gameObject);
         
@@ -44,6 +46,13 @@ public class PaientManager : MonoBehaviour
 
         treatingForce = 0f;
     }
+    
+    private void OnStateChanged(GameState newState)
+    {
+        if (newState == GameState.Starting)
+            Debug.Log("Start");
+    }
+    
     private void Update()
     {
         if (sm.CurrentState != null)

@@ -13,4 +13,6 @@ public class PatientAttributes:Attributes
     public float effectFactors;
     public float tickEffectAmount;
     
+    
+    
 }

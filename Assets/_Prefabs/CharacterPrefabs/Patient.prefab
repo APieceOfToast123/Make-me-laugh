@@ -129,16 +129,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bad44e9946c44e01a750558a9cc4c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributes:
+  patientAttributes:
     laughRadius: 4
     cryRadius: 5
-    mood: 0
+    mood: 45
     effectFactors: 1
     tickEffectAmount: 0
   layermask:
     serializedVersion: 2
     m_Bits: 64
-  GameManager: {fileID: 0}
+  treatingForce: 0
+  TreatingDoctor: {fileID: 0}
 --- !u!65 &8081074439719178805
 BoxCollider:
   m_ObjectHideFlags: 0
