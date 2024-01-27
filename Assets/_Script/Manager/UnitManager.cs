@@ -10,32 +10,37 @@ public class UnitManager : MonoBehaviour
 {
     public GameManager gm { get; set; }
 
-    private void Awake()
+    protected void Awake()
     {
         GameManager.OnBeforeStateChanged += BeforeStateChanged;
         GameManager.OnAfterStateChanged += AfterStateChanged;
     }
 
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         GameManager.OnBeforeStateChanged -= BeforeStateChanged;
         GameManager.OnAfterStateChanged -= AfterStateChanged;
     }
 
-    private void BeforeStateChanged(GameState newState)
+    protected void BeforeStateChanged(GameState newState)
     {
+        Debug.Log("Before");
         switch (newState)
         {
             case GameState.Starting:
                 HandleBeforeStarting();
                 break;
+            case GameState.Running:
+                HandleBeforeRunning();
+                break;
             
         }
     }
 
-    private void AfterStateChanged(GameState newState)
+    protected void AfterStateChanged(GameState newState)
     {
+        Debug.Log("Unit Enter");
         switch (newState)
         {
             case GameState.Starting:

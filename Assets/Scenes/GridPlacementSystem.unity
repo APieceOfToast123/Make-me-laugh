@@ -1051,6 +1051,10 @@ MonoBehaviour:
   Patients: []
   Doctors: []
   changeInterval: 0.2
+  InitalDocPosition: {x: 6.6, y: 0, z: -4.6}
+  OffsetDocPosition: {x: 0, y: 0, z: 2.4}
+  InitalPatPosition: {x: 0, y: 0, z: 0}
+  OffsetPatPosition: {x: 0, y: 0, z: 0}
   DocPrefab: {fileID: 5133798985777510251, guid: 1165ebe01fe6448c5993c693eb3bc884,
     type: 3}
   PatPrefab: {fileID: 5133798985777510251, guid: f278d5303a0b2c948aaec1979031da43,

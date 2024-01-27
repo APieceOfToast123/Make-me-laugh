@@ -28,7 +28,7 @@ public class SDocSelectable : BasicState
         }
 
         //进入可选状态锁起点
-        dm.originalPosition = dm.transform.position;
+        //dm.originalPosition = dm.transform.position;
     }
 
     public override void Action()

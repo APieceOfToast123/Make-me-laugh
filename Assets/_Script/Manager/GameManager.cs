@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -15,13 +16,18 @@ public class GameManager : StaticInstance<GameManager> {
     public static event Action<GameState> OnAfterStateChanged;
     private Coroutine moodCoroutine;//协程
     
-    [FormerlySerializedAs("Paients")] [Header("========== Units ==========")]
+    [Header("========== Units ==========")]
     public List<GameObject> Patients;
     public List<GameObject> Doctors;
 
     
-    [Header("========== Change mood setting  ==========")]
+    [Header("========== Normal setting  ==========")]
     [SerializeField]private float changeInterval = .5f;//修改心情的间隔时间
+    [SerializeField] private Vector3 InitalDocPosition;
+    [SerializeField] private Vector3 OffsetDocPosition;
+    [SerializeField] private Vector3 InitalPatPosition;
+    [SerializeField] private Vector3 OffsetPatPosition;
+    
     private List<PaientManager> SettledPaients = new List<PaientManager>();
 
     [Header("========== Prefabs ==========")] 
@@ -40,9 +46,12 @@ public class GameManager : StaticInstance<GameManager> {
     public GameState State { get; private set; }
 
     // Kick the game off with the first state
-    void Start() => ChangeState(GameState.Starting);
+    void Start()
+    {
+        ChangeState(GameState.Starting);
+    }
 
-    
+
     //订阅事件
     private void OnEnable()
     {
@@ -114,7 +123,7 @@ public class GameManager : StaticInstance<GameManager> {
         }
     }
     
-    GameObject CreateUnit(GameObject prefab)
+    GameObject CreateUnit(GameObject prefab, Vector3 position)
     {
         if (prefab == null)
         {
@@ -124,7 +133,7 @@ public class GameManager : StaticInstance<GameManager> {
         else
         {
             GameObject instance = Instantiate(prefab);
-            instance.transform.position = new Vector3(0, 0, 0); // 设置实例的位置
+            instance.transform.position = position; // 设置实例的位置
             return instance;
         }
     }
@@ -160,7 +169,7 @@ public class GameManager : StaticInstance<GameManager> {
     {
         while (State == GameState.Running)
         {
-            Patients.Add(CreateUnit(characterPrefab));
+            Patients.Add(CreateUnit(characterPrefab,InitalPatPosition));
             yield return new WaitForSeconds(interval);
         }
     }
@@ -212,8 +221,10 @@ public class GameManager : StaticInstance<GameManager> {
 
     private void HandleStarting() {
         
-        //放置本游戏的Doctor
-        Doctors.Add(CreateUnit(DocPrefab));
+        //根据当前DocList的数量放置Doc的位置放置本游戏的Doctor
+        Doctors.Add(CreateUnit(DocPrefab,InitalDocPosition+Doctors.Count*OffsetDocPosition));
+        Doctors.Add(CreateUnit(DocPrefab,InitalDocPosition+Doctors.Count*OffsetDocPosition));
+        Doctors.Add(CreateUnit(DocPrefab,InitalDocPosition+Doctors.Count*OffsetDocPosition));
         
         
         //开始游戏流程
@@ -223,7 +234,7 @@ public class GameManager : StaticInstance<GameManager> {
     private void HandleRunning() {
         //StopAllCoroutines();
         isRoundingComplete = false;
-        StartCoroutine(CountdownCoroutine(3)); // 启动30秒的倒计时
+        StartCoroutine(CountdownCoroutine(30)); // 启动30秒的倒计时
         StartCoroutine(SpawnCharactersPeriodically(PatPrefab, 5f));
     }
 
@@ -238,6 +249,15 @@ public class GameManager : StaticInstance<GameManager> {
         
         // Keep track of how many units need to make a move, once they've all finished, change the state. This could
         // be monitored in the unit manager or the units themselves.
+    }
+    
+    void OnGUI()
+    {
+        // 添加一些垂直空间，将内容向下移动
+        GUILayout.Space(50); // 你可以根据需要调整这个值
+
+        // 现在显示标签
+        GUILayout.Label($"<color='black'><size=40>{State}</size></color>");
     }
 }
 

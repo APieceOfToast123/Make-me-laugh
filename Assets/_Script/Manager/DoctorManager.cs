@@ -26,10 +26,10 @@ public class DoctorManager : UnitManager
     
     private void Awake()
     {
+        base.Awake();
         //TODO:目前方便测试，后续改回来
         //attributes = new DoctorAttributes();
-
-        base.HandleAfterStarting();
+        
         //新建状态机
         sm = new DoctorSM(this.gameObject);
         
@@ -37,12 +37,21 @@ public class DoctorManager : UnitManager
         sm.AddState(StateID.DocSelectable,new SDocSelectable(sm));
         sm.AddState(StateID.DocTreating,new SDocTreating(sm));
 
-        //TODO: 暂时是记录摆放的点，之后改成程序指定
-        originalPosition = transform.position;
-
         firstVaildHit = null;
     }
     
+    private void OnDestroy()
+    {
+        base.OnDestroy();
+    }
+
+    public override void HandleBeforeRunning()
+    {
+        base.HandleBeforeRunning();
+        Debug.Log("Entered");
+        originalPosition = transform.position;
+    }
+
     private void Update()
     {
         if (sm.CurrentState != null)

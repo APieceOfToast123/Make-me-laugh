@@ -23,7 +23,7 @@ public class PaientManager : UnitManager
     
     private void Awake()
     {
-        Debug.Log("Awake");
+//        Debug.Log("Awake");
         //TODO:目前方便测试，后续改回来
         //patientAttributes = new PatientAttributes();
         // if (m_SendThisToGM == null)
