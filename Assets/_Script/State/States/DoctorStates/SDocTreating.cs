@@ -23,6 +23,8 @@ public class SDocTreating : BasicState
         base.OnEnter();
         sm = (DoctorSM)stateMachine;
         dm = sm.OwnerGo.GetComponent<DoctorManager>();
+        
+        dm.Trans2Pat();
         if (dm.firstVaildHit != null)
         {
             dm.AddTreatingForce();

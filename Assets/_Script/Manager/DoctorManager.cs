@@ -69,14 +69,16 @@ public class DoctorManager : MonoBehaviour
             firstVaildHit = null;
     }
 
-    public void TransOrRelocate()
+    public void Trans2Pat()
     {
-        if (firstVaildHit != null)
-        {
-            this.transform.position = firstVaildHit.position + posOffset;
-        }
-        else
-            this.transform.position = originalPosition;
+        Debug.Log("Trans");
+        this.transform.position = firstVaildHit.position + posOffset;
+    }
+
+    public void Relocate()
+    {
+        Debug.Log("Relocate");
+        this.transform.position = originalPosition;
     }
 
     public void AddTreatingForce()
@@ -85,6 +87,7 @@ public class DoctorManager : MonoBehaviour
         {
             lastTimeVaildHit = firstVaildHit;
             lastTimeVaildHit.GetComponent<PaientManager>().treatingForce = attributes.treatEffect;
+            lastTimeVaildHit.GetComponent<PaientManager>().TreatingDoctor = this;
             //lastTimeVaildHit.GetComponent<PaientManager>().patientAttributes.tickEffectAmount += attributes.treatEffect;
         }
     }

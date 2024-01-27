@@ -76,10 +76,22 @@ public class SDocSelectable : BasicState
         if (dragging && Input.GetMouseButtonUp(0))
         {
             dragging = false;
-            dm.TransOrRelocate();
-            if (dm.firstVaildHit != null)
+            
+            if (dm.firstVaildHit == null)
             {
-                sm.ChangeState(StateID.DocTreating); 
+                dm.Relocate();
+            }
+            else
+            {
+                if (dm.firstVaildHit.transform.GetComponent<PaientManager>().TreatingDoctor != null)
+                {
+                    dm.Relocate();
+                }
+                // 只有在有碰撞物体，并且物体不具有主治医生的时候，可以
+                else
+                {
+                    sm.ChangeState(StateID.DocTreating); 
+                }
             }
         }
     }

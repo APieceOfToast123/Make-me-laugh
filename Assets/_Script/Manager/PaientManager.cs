@@ -114,8 +114,6 @@ public class PaientManager : MonoBehaviour
             TreatingDoctor.lastTimeVaildHit = null;
             TreatingDoctor = null;
         }
-        
-        
     }
 
     public void Destroy()
