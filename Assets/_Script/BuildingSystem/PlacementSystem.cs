@@ -99,6 +99,7 @@ public class PlacementSystem : MonoBehaviour
             return;
         }
         source.Play();
+        
         GameObject newObject = Instantiate(database.objectsData[selectedObjectIndex].Prefab);
         newObject.transform.position = grid.CellToWorld(gridPosition);
         placedGameObject.Add(newObject);
