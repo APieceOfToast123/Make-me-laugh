@@ -126,7 +126,9 @@ PrefabInstance:
       value: bedDouble
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -4608096643825877161, guid: d8a295e9417aa2b42b79a3d29d84b46e, type: 3}
+    - {fileID: 1376099734721099467, guid: d8a295e9417aa2b42b79a3d29d84b46e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8a295e9417aa2b42b79a3d29d84b46e, type: 3}
