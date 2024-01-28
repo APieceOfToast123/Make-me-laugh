@@ -8,7 +8,6 @@ public class PanelLoader : MonoBehaviour
     private Animator LoadedPanelAnimator;
     public bool PanelOn = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         LoadedPanelAnimator = LoadedPanel.GetComponent<Animator>();
@@ -37,7 +36,6 @@ public class PanelLoader : MonoBehaviour
             PanelOn = true;
         }
     }
-
 
     public void ClosePanel()
     {
