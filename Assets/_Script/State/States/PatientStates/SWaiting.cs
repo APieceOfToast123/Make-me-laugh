@@ -16,7 +16,6 @@ public class SWaiting : SSettled
     public override void OnEnter()
     {
         base.OnEnter();
-        //Debug.Log("Normal Enter");
     }
 
     public override void Check()

@@ -81,6 +81,7 @@ public class SSelectable : BasicState
             if (pm.CheckNearbyBeds())
             {
                 sm.ChangeState(StateID.Normal);
+                pm.transform.position = pm.GetNearBeds()[0].transform.position;
             }
         }
         if (timer <= 0)
@@ -94,7 +95,7 @@ public class SSelectable : BasicState
     public override void OnExit()
     {
         base.OnExit();
-        EventManager.CallTrySettlePatient(pm.CheckNearbyBeds());
+        //EventManager.CallTrySettlePatient(pm.CheckNearbyBeds());
         EventManager.CallAddSettledOne(sm.OwnerGo.GetComponent<PaientManager>());
         EventManager.CallFirstOneSetteld();
     }

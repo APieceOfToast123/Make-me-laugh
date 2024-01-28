@@ -160,7 +160,6 @@ public class GameManager : StaticInstance<GameManager> {
 
     private void OnTrySettlePatient(bool flag)
     {
-        UpdateAvaibleBeds();
         if (flag)
         {
             foreach (var VARIABLE in Patients[0].GetComponent<PaientManager>().GetNearBeds())

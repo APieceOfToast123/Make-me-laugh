@@ -6,7 +6,7 @@ using UnityEngine;
 public class ObjectPlacer : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> placedGameObjects = new();
+    private static List<GameObject> placedGameObjects = new();
 
     private void Awake()
     {
