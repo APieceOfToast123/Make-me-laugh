@@ -38,7 +38,7 @@ public class GameManager : StaticInstance<GameManager> {
 
     private bool isRoundingComplete;
     private MoneySystem moneySystem;
-    public ProgressBar progressBar;
+    // public ProgressBar progressBar;
     public int RoundCount { get; private set; }
 
     public void IncrementRound() {
@@ -203,13 +203,12 @@ public class GameManager : StaticInstance<GameManager> {
     /// </summary>
     private IEnumerator CountdownCoroutine(int duration)
     {
-        progressBar.remainingTime = duration;
-        while (progressBar.remainingTime > 0)
+        int remainingTime = duration;
+        while (remainingTime > 0)
         {
-            progressBar.UpdateProgressBar();
         //    Debug.Log("Remaining time: " + remainingTime + " seconds");
             yield return new WaitForSeconds(1);
-            progressBar.remainingTime--;
+            remainingTime--;
         }
         // 当倒计时结束时，执行一些操作，比如改变游戏状态
         ChangeState(GameState.Rounding);
@@ -293,7 +292,7 @@ public class GameManager : StaticInstance<GameManager> {
     private void HandleRunning() {
         //StopAllCoroutines();
         isRoundingComplete = false;
-        StartCoroutine(CountdownCoroutine(progressBar.duration)); // 启动30秒的倒计时
+        StartCoroutine(CountdownCoroutine(30)); // 启动30秒的倒计时
         StartCoroutine(SpawnPatPeriodically( 5f));
         StartCoroutine(ChangeMoodOverTime());
     }
