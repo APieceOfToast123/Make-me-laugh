@@ -20,6 +20,7 @@ public class GameManager : StaticInstance<GameManager> {
     [Header("========== Units ==========")]
     public List<GameObject> Patients;
     public List<GameObject> Doctors;
+    public List<GameObject> AvaibleBeds;
 
     
     [Header("========== Normal setting  ==========")]
@@ -159,17 +160,37 @@ public class GameManager : StaticInstance<GameManager> {
 
     private void OnTrySettlePatient(bool flag)
     {
+        UpdateAvaibleBeds();
         if (flag)
         {
-            Patients.RemoveAt(0);
-            for (int i = 0; i < Patients.Count; i++)
+            foreach (var VARIABLE in Patients[0].GetComponent<PaientManager>().GetNearBeds())
             {
-                Patients[i].transform.position = InitalPatPosition + i * OffsetPatPosition;
+                if (AvaibleBeds.Contains(VARIABLE.gameObject))
+                {
+                    Patients.RemoveAt(0);
+                    for (int i = 0; i < Patients.Count; i++)
+                    {
+                        Patients[i].transform.position = InitalPatPosition + i * OffsetPatPosition;
+                    }
+                    Patients[0].GetComponent<PaientManager>().sm.ChangeState(StateID.Selectable);
+                    break;
+                }
             }
-            Patients[0].GetComponent<PaientManager>().sm.ChangeState(StateID.Selectable);
         }
         else
             Patients[0].transform.position = InitalPatPosition;
+    }
+
+    private void UpdateAvaibleBeds()
+    {
+        //检查目前剩下的床
+        List<GameObject> _AvaiableBeds = EventManager.CallGetBeds();
+        foreach (var VARIABLE in SettledPaients)
+        {
+            _AvaiableBeds.Remove(VARIABLE.GetNearBeds()[0].gameObject);
+        }
+        AvaibleBeds = _AvaiableBeds;
+
     }
 
     /// <summary>

@@ -148,6 +148,11 @@ public class PaientManager : UnitManager
         return hitColliders.Length > 0;
     }
 
+    public Collider[] GetNearBeds()
+    {
+        return Physics.OverlapSphere(transform.position, patientAttributes.checkRadius, bedLayer);
+    }
+
     public Vector3 GetBedPosition()
     {
         if (hitColliders.Length > 0)

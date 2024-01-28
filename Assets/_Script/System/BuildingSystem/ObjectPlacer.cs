@@ -8,6 +8,11 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField]
     private List<GameObject> placedGameObjects = new();
 
+    private void Awake()
+    {
+        EventManager.GetBeds += () => { return placedGameObjects; };
+    }
+
     public int PlaceObject(GameObject prefab, Vector3 position)
     {
         GameObject newObject = Instantiate(prefab);

@@ -6529,13 +6529,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Patients: []
   Doctors: []
+  AvaibleBeds: []
   changeInterval: 0.2
-  InitalDocPosition: {x: 0, y: 0, z: 0}
-  OffsetDocPosition: {x: 0, y: 0, z: 0}
-  InitalPatPosition: {x: 0, y: 0, z: 0}
-  OffsetPatPosition: {x: 0, y: 0, z: 0}
-  DocPrefab: {fileID: 0}
-  PatPrefab: {fileID: 0}
+  InitalDocPosition: {x: -2.56, y: 0.96, z: 5.5}
+  OffsetDocPosition: {x: 0, y: 0, z: 1}
+  InitalPatPosition: {x: -3.25, y: 0.77, z: 4.66}
+  OffsetPatPosition: {x: 0, y: 0, z: 1}
+  DocPrefab: {fileID: 5133798985777510251, guid: 1165ebe01fe6448c5993c693eb3bc884,
+    type: 3}
+  PatPrefab: {fileID: 5133798985777510251, guid: f278d5303a0b2c948aaec1979031da43,
+    type: 3}
 --- !u!4 &443147002
 Transform:
   m_ObjectHideFlags: 0

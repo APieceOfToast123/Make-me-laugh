@@ -16,6 +16,7 @@ public static class EventManager
     public static Action<PaientManager> AddDoctor;
     public static Action<PaientManager> DeleteSettledOne;
     public static Action<bool> TrySettlePatient;
+    public static Func<List<GameObject>> GetBeds;
     
     public static void CallAddSettledOne(PaientManager settledOne)
     {
@@ -53,5 +54,10 @@ public static class EventManager
     public static void CallTrySettlePatient(bool isHit)
     {
         TrySettlePatient?.Invoke(isHit);
+    }
+
+    public static List<GameObject> CallGetBeds()
+    {
+        return GetBeds?.Invoke();
     }
 }
