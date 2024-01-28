@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.State;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -61,11 +62,13 @@ public class GameManager : StaticInstance<GameManager> {
         EventManager.DeleteSettledOne += (manager) => SettledPaients.RemoveAt(SettledPaients.IndexOf(manager));
         
         //只在第一个被放入的时候执行
-        EventManager.FirstOneSettled += () =>
-        {
-            StartChangingMood(); // 启动协程
-            EventManager.FirstOneSettled -= StartChangingMood; // 移除订阅
-        };
+        // EventManager.FirstOneSettled += () =>
+        // {
+        //     StartChangingMood(); // 启动协程
+        //     EventManager.FirstOneSettled -= StartChangingMood; // 移除订阅
+        // };
+
+        EventManager.TrySettlePatient += OnTrySettlePatient;
     }
 
     //删除订阅
@@ -73,7 +76,8 @@ public class GameManager : StaticInstance<GameManager> {
     {
         EventManager.AddSettledOne -= (manager) => SettledPaients.Add(manager);
         EventManager.CheckEffect -= CheckEffect;
-        EventManager.DeleteSettledOne += (manager) => SettledPaients.RemoveAt(SettledPaients.IndexOf(manager));
+        EventManager.DeleteSettledOne -= (manager) => SettledPaients.RemoveAt(SettledPaients.IndexOf(manager));
+        EventManager.TrySettlePatient -= OnTrySettlePatient;
     }
     
     /// <summary>
@@ -81,8 +85,9 @@ public class GameManager : StaticInstance<GameManager> {
     /// </summary>
     private IEnumerator ChangeMoodOverTime()
     {
-        while (true) // 无限循环
+        while (State == GameState.Running) // 无限循环
         {
+            Debug.Log("ChangeOverTime");
             yield return new WaitForSeconds(changeInterval); // 等待一定时间
             foreach (var VARIABLE in SettledPaients)
             {
@@ -146,6 +151,21 @@ public class GameManager : StaticInstance<GameManager> {
         }
     }
 
+    private void OnTrySettlePatient(bool flag)
+    {
+        if (flag)
+        {
+            Patients.RemoveAt(0);
+            for (int i = 0; i < Patients.Count; i++)
+            {
+                Patients[i].transform.position = InitalPatPosition + i * OffsetPatPosition;
+            }
+            Patients[0].GetComponent<PaientManager>().sm.ChangeState(StateID.Selectable);
+        }
+        else
+            Patients[0].transform.position = InitalPatPosition;
+    }
+
     /// <summary>
     /// 倒计时x秒
     /// </summary>
@@ -154,7 +174,7 @@ public class GameManager : StaticInstance<GameManager> {
         int remainingTime = duration;
         while (remainingTime > 0)
         {
-            Debug.Log("Remaining time: " + remainingTime + " seconds");
+        //    Debug.Log("Remaining time: " + remainingTime + " seconds");
             yield return new WaitForSeconds(1);
             remainingTime--;
         }
@@ -165,11 +185,17 @@ public class GameManager : StaticInstance<GameManager> {
     /// <summary>
     /// 每隔一段时间放置一个角色
     /// </summary>
-    private IEnumerator SpawnCharactersPeriodically(GameObject characterPrefab, float interval)
+    private IEnumerator SpawnPatPeriodically(float interval)
     {
         while (State == GameState.Running)
         {
-            Patients.Add(CreateUnit(characterPrefab,InitalPatPosition));
+            if (Patients.Count == 0)
+            {
+                GameObject theFirst = CreateUnit(PatPrefab, InitalPatPosition + Patients.Count * OffsetPatPosition);
+                Patients.Add(theFirst);
+                theFirst.GetComponent<PaientManager>().sm.ChangeState(StateID.Selectable);
+            }
+            Patients.Add(CreateUnit(PatPrefab,InitalPatPosition+Patients.Count*OffsetPatPosition));
             yield return new WaitForSeconds(interval);
         }
     }
@@ -235,7 +261,8 @@ public class GameManager : StaticInstance<GameManager> {
         //StopAllCoroutines();
         isRoundingComplete = false;
         StartCoroutine(CountdownCoroutine(30)); // 启动30秒的倒计时
-        StartCoroutine(SpawnCharactersPeriodically(PatPrefab, 5f));
+        StartCoroutine(SpawnPatPeriodically( 5f));
+        StartCoroutine(ChangeMoodOverTime());
     }
 
     private void HandleRounding()

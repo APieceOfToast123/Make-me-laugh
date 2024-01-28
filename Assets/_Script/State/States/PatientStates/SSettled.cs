@@ -25,13 +25,13 @@ public class SSettled : BasicState
         switch (sm.CurrentStateID)
         {
             case StateID.Laugh:
-                pm.patientAttributes.effectFactors = 1.5f;
+                pm.patientAttributes.effectFactors = .6f;
                 break;
             case StateID.Normal:
                 pm.patientAttributes.effectFactors = 0;
                 break;
             case StateID.Cry:
-                pm.patientAttributes.effectFactors = -2f;
+                pm.patientAttributes.effectFactors = -.8f;
                 break;
         }
         

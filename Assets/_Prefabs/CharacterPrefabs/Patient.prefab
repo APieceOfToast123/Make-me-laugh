@@ -130,14 +130,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patientAttributes:
-    laughRadius: 4
-    cryRadius: 5
+    laughRadius: 2
+    cryRadius: 2.8
     mood: 45
     effectFactors: 1
     tickEffectAmount: 0
-  layermask:
+    checkRadius: 1
+  patientLayer:
     serializedVersion: 2
     m_Bits: 64
+  bedLayer:
+    serializedVersion: 2
+    m_Bits: 256
   treatingForce: 0
   TreatingDoctor: {fileID: 0}
 --- !u!65 &8081074439719178805

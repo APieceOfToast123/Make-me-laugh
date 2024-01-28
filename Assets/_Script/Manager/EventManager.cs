@@ -14,6 +14,7 @@ public static class EventManager
     public static Action CheckEffect;
     public static Action<PaientManager> AddDoctor;
     public static Action<PaientManager> DeleteSettledOne;
+    public static Action<bool> TrySettlePatient;
     
     public static void CallAddSettledOne(PaientManager settledOne)
     {
@@ -42,5 +43,10 @@ public static class EventManager
     public static void CallDeleteSettledOne(PaientManager settledOne)
     {
         DeleteSettledOne?.Invoke(settledOne);
+    }
+
+    public static void CallTrySettlePatient(bool isHit)
+    {
+        TrySettlePatient?.Invoke(isHit);
     }
 }

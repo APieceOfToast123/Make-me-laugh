@@ -12,7 +12,8 @@ public class PatientAttributes:Attributes
     public float mood;
     public float effectFactors;
     public float tickEffectAmount;
-    
-    
-    
+    public float checkRadius;
+
+
+
 }

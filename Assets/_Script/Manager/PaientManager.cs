@@ -11,8 +11,11 @@ public class PaientManager : UnitManager
 {
     [FormerlySerializedAs("attributes")] 
     public PatientAttributes patientAttributes;
-    public LayerMask layermask;
+    public LayerMask patientLayer;
+    public LayerMask bedLayer;
     public PatientSM sm;
+    private Collider[] hitColliders;
+    private Vector3 originalPosition;
     
     //TODO: 改写成系统自动检测到GM
     //
@@ -23,6 +26,9 @@ public class PaientManager : UnitManager
     
     private void Awake()
     {
+        originalPosition = this.transform.position;
+//        print("Awake"+originalPosition);
+        base.Awake();
 //        Debug.Log("Awake");
         //TODO:目前方便测试，后续改回来
         //patientAttributes = new PatientAttributes();
@@ -35,8 +41,9 @@ public class PaientManager : UnitManager
         sm = new PatientSM(this.gameObject);
         
         //为状态机添加状态，第一个被添加的状态被视为初始状态
+        sm.AddState(StateID.waiting,new SWaiting(sm));
         sm.AddState(StateID.Selectable,new SSelectable(sm));
-        sm.AddState(StateID.Settled,new SSettled("Settled",sm));
+        //sm.AddState(StateID.Settled,new SSettled("Settled",sm));
         sm.AddState(StateID.Laugh,new SLaugh(sm));
         sm.AddState(StateID.Cry,new SCry(sm));
         sm.AddState(StateID.Normal,new SNormal(sm));
@@ -46,7 +53,12 @@ public class PaientManager : UnitManager
 
         treatingForce = 0f;
     }
-    
+
+    private void OnDestroy()
+    {
+        base.OnDestroy();
+    }
+
     private void OnStateChanged(GameState newState)
     {
         if (newState == GameState.Starting)
@@ -84,7 +96,7 @@ public class PaientManager : UnitManager
                 break;
         }
         
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, layermask);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, patientLayer);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.GetComponent<PaientManager>() != null)
@@ -128,6 +140,22 @@ public class PaientManager : UnitManager
     public void Destroy()
     {
         Destroy(this.gameObject);
+    }
+    
+    public bool CheckNearbyBeds()
+    {
+        hitColliders = Physics.OverlapSphere(transform.position, patientAttributes.checkRadius, bedLayer);
+        return hitColliders.Length > 0;
+    }
+
+    public Vector3 GetBedPosition()
+    {
+        if (hitColliders.Length > 0)
+        {
+            return hitColliders[0].transform.position;
+        }
+        else
+            return new Vector3();
     }
 
     void OnGUI()

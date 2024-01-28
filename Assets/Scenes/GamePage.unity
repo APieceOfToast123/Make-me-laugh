@@ -6420,8 +6420,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b32bdf6f7bc04037abfe0b42ca31bd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Patients: []
+  Doctors: []
   changeInterval: 0.2
-  SettledPaients: []
+  InitalDocPosition: {x: 6.8, y: 0.8, z: -4}
+  OffsetDocPosition: {x: 0, y: 0, z: 2}
+  InitalPatPosition: {x: -6.4, y: 0.8, z: -4.25}
+  OffsetPatPosition: {x: 0, y: 0, z: 1}
+  DocPrefab: {fileID: 5133798985777510251, guid: 1165ebe01fe6448c5993c693eb3bc884,
+    type: 3}
+  PatPrefab: {fileID: 5133798985777510251, guid: f278d5303a0b2c948aaec1979031da43,
+    type: 3}
 --- !u!4 &443147002
 Transform:
   m_ObjectHideFlags: 0

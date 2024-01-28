@@ -22,7 +22,7 @@ public class SCry : SSettled
         if (pm.patientAttributes.mood <= 0)
         {
             sm.ChangeState(StateID.fail);
-        }else if (pm.patientAttributes.mood >= 40)
+        }else if (pm.patientAttributes.mood > 40)
         {
             sm.ChangeState(StateID.Normal);
         }
