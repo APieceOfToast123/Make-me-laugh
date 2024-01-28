@@ -59,6 +59,7 @@ public class GameManager : StaticInstance<GameManager> {
         EventManager.AddSettledOne += (manager) => SettledPaients.Add(manager);
         EventManager.CheckEffect += CheckEffect;
         EventManager.DeleteSettledOne += (manager) => SettledPaients.RemoveAt(SettledPaients.IndexOf(manager));
+        EventManager.Charge += Charge;
         
         //只在第一个被放入的时候执行
         EventManager.FirstOneSettled += () =>
@@ -73,7 +74,8 @@ public class GameManager : StaticInstance<GameManager> {
     {
         EventManager.AddSettledOne -= (manager) => SettledPaients.Add(manager);
         EventManager.CheckEffect -= CheckEffect;
-        EventManager.DeleteSettledOne += (manager) => SettledPaients.RemoveAt(SettledPaients.IndexOf(manager));
+        EventManager.DeleteSettledOne -= (manager) => SettledPaients.RemoveAt(SettledPaients.IndexOf(manager));
+        EventManager.Charge -= Charge;
     }
     
     /// <summary>
@@ -121,6 +123,11 @@ public class GameManager : StaticInstance<GameManager> {
         {
             VARIABLE.changeEffectFactors();
         }
+    }
+
+    public void Charge()
+    {
+        
     }
     
     GameObject CreateUnit(GameObject prefab, Vector3 position)

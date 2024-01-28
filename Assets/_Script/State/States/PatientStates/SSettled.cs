@@ -9,6 +9,7 @@ public class SSettled : BasicState
     public float interval = .5f; // 时间间隔
     protected PatientSM sm;
     protected PaientManager pm;
+    protected MoneySystem ms;
     
     public SSettled(string name, PatientSM stateMachine) : base(name, stateMachine)
     {
@@ -20,6 +21,7 @@ public class SSettled : BasicState
         
         sm = (PatientSM) stateMachine;
         pm = sm.OwnerGo.GetComponent<PaientManager>();
+        ms = MoneySystem.Instance;
         
         //TODO: 之后可能需要平衡一下数值
         switch (sm.CurrentStateID)

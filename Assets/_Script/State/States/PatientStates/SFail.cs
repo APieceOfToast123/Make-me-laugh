@@ -9,12 +9,15 @@ public class SFail : SSettled
     {
         
     }
+    int LosePunish = 15;
+
 
     public override void OnEnter()
     {
         base.OnEnter();
         Debug.Log("Fail");
         pm.ClearTreatForce();
+        ms.ReduceMoney(LosePunish);
         EventManager.DeleteSettledOne(sm.OwnerGo.GetComponent<PaientManager>());
         
         pm.Destroy();

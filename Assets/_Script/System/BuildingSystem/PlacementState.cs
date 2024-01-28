@@ -71,7 +71,7 @@ public class PlacementState : IBuildingState
             database.objectsData[selectedObjectIndex].ID,
             index);
 
-        // previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), Vector3.zero, false);
     }
 
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
@@ -87,7 +87,7 @@ public class PlacementState : IBuildingState
     {
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
 
-        // previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), Vector3.zero, placementValidity);
     }
 }
 

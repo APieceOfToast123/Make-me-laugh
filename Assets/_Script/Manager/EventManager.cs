@@ -12,6 +12,7 @@ public static class EventManager
     public static Action FirstOneSettled;
     //public static Func<Transform, float, PaientManager[]> EffectCheck;
     public static Action CheckEffect;
+    public static Action Charge;
     public static Action<PaientManager> AddDoctor;
     public static Action<PaientManager> DeleteSettledOne;
     
@@ -42,5 +43,10 @@ public static class EventManager
     public static void CallDeleteSettledOne(PaientManager settledOne)
     {
         DeleteSettledOne?.Invoke(settledOne);
+    }
+
+    public static void CallCharge()
+    {
+        Charge?.Invoke();
     }
 }

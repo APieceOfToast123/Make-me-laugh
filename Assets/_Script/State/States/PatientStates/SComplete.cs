@@ -10,11 +10,14 @@ public class SComplete : SSettled
         
     }
 
+    int CompleteAward = 30;
+
     public override void OnEnter()
     {
         base.OnEnter();
         Debug.Log("Complete");
         pm.ClearTreatForce();
+        ms.AddMoney(CompleteAward);
         EventManager.DeleteSettledOne(sm.OwnerGo.GetComponent<PaientManager>());
         
         pm.Destroy();
