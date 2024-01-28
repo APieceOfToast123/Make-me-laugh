@@ -38,7 +38,8 @@ public class GameManager : StaticInstance<GameManager> {
     [SerializeField]private GameObject PatPrefab;
 
     private bool isRoundingComplete;
-    
+    private MoneySystem moneySystem;
+    public ProgressBar progressBar;
     public int RoundCount { get; private set; }
 
     public void IncrementRound() {
@@ -52,6 +53,11 @@ public class GameManager : StaticInstance<GameManager> {
     void Start()
     {
         ChangeState(GameState.Starting);
+        moneySystem = MoneySystem.Instance;
+        if (moneySystem == null)
+        {
+            Debug.LogError("MoneySystem instance is null!");
+        }
     }
 
 
@@ -133,7 +139,7 @@ public class GameManager : StaticInstance<GameManager> {
 
     public void Charge()
     {
-        
+        moneySystem.ReduceMoney(10 * Doctors.Count);
     }
     
     GameObject CreateUnit(GameObject prefab, Vector3 position)
@@ -187,12 +193,13 @@ public class GameManager : StaticInstance<GameManager> {
     /// </summary>
     private IEnumerator CountdownCoroutine(int duration)
     {
-        int remainingTime = duration;
-        while (remainingTime > 0)
+        progressBar.remainingTime = duration;
+        while (progressBar.remainingTime > 0)
         {
+            progressBar.UpdateProgressBar();
         //    Debug.Log("Remaining time: " + remainingTime + " seconds");
             yield return new WaitForSeconds(1);
-            remainingTime--;
+            progressBar.remainingTime--;
         }
         // 当倒计时结束时，执行一些操作，比如改变游戏状态
         ChangeState(GameState.Rounding);
@@ -276,7 +283,7 @@ public class GameManager : StaticInstance<GameManager> {
     private void HandleRunning() {
         //StopAllCoroutines();
         isRoundingComplete = false;
-        StartCoroutine(CountdownCoroutine(30)); // 启动30秒的倒计时
+        StartCoroutine(CountdownCoroutine(progressBar.duration)); // 启动30秒的倒计时
         StartCoroutine(SpawnPatPeriodically( 5f));
         StartCoroutine(ChangeMoodOverTime());
     }
