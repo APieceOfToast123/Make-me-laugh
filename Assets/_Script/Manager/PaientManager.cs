@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class PaientManager : UnitManager
 {
@@ -14,7 +15,7 @@ public class PaientManager : UnitManager
     public LayerMask patientLayer;
     public LayerMask bedLayer;
     public PatientSM sm;
-    private Collider[] hitColliders;
+    public Collider[] hitColliders;
     private Vector3 originalPosition;
     
 
@@ -42,6 +43,7 @@ public class PaientManager : UnitManager
 
 
         treatingForce = 0f;
+        patientAttributes.mood = UnityEngine.Random.Range(40,70);
     }
 
     private void OnDestroy()
@@ -135,7 +137,7 @@ public class PaientManager : UnitManager
     public bool CheckNearbyBeds()
     {
         hitColliders = Physics.OverlapSphere(transform.position, patientAttributes.checkRadius, bedLayer);
-        return hitColliders.Length > 0;
+        return hitColliders.Length>0;
     }
 
     public Collider[] GetNearBeds()
