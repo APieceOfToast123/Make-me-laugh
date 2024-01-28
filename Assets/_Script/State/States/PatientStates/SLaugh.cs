@@ -23,7 +23,7 @@ public class SLaugh : SSettled
         if (pm.patientAttributes.mood >= 100)
         {
             sm.ChangeState(StateID.Complete);
-        }else if (pm.patientAttributes.mood <= 70)
+        }else if (pm.patientAttributes.mood < 70)
         {
             sm.ChangeState(StateID.Normal);
         }

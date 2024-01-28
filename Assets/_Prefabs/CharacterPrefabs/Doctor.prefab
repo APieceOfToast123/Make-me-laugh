@@ -151,8 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attributes:
-    radius: 0
-    treatEffect: 0
+    radius: 1
+    treatEffect: 2
   PatientLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -160,4 +160,4 @@ MonoBehaviour:
   hitColliders: []
   firstVaildHit: {fileID: 0}
   lastTimeVaildHit: {fileID: 0}
-  posOffset: {x: 0, y: 0, z: 0}
+  posOffset: {x: 0.5, y: 0, z: 0}

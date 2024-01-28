@@ -13,6 +13,9 @@ public class SSelectable : BasicState
     private Vector3 offset;
     private float zDistanceToCamera;
     
+    private float timer; // 添加计时器
+    private float duration = 5f; // 设置状态持续时间，例如5秒
+    
     public SSelectable(PatientSM stateMachine) : base("Selectable", stateMachine)
     {
     }
@@ -25,6 +28,7 @@ public class SSelectable : BasicState
         {
             pm = sm.OwnerGo.GetComponent<PaientManager>();
         }
+        timer = duration; // 初始化计时器
     }
 
     public override void Action()
@@ -60,6 +64,12 @@ public class SSelectable : BasicState
                 sm.OwnerGo.transform.position = newPosition;
             }
         }
+        
+        // 更新计时器
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
     }
 
     public override void Check()
@@ -68,13 +78,23 @@ public class SSelectable : BasicState
         if (dragging && Input.GetMouseButtonUp(0))
         {
             dragging = false;
-            sm.ChangeState(StateID.Normal);
+            if (pm.CheckNearbyBeds())
+            {
+                sm.ChangeState(StateID.Normal);
+            }
+        }
+        if (timer <= 0)
+        {
+            // 计时结束，改变状态
+            pm.patientAttributes.mood = 39;
+            sm.ChangeState(StateID.Cry);
         }
     }
 
     public override void OnExit()
     {
         base.OnExit();
+        EventManager.CallTrySettlePatient(pm.CheckNearbyBeds());
         EventManager.CallAddSettledOne(sm.OwnerGo.GetComponent<PaientManager>());
         EventManager.CallFirstOneSetteld();
     }

@@ -5,16 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af2c1236-2f60-49a4-81be-52d8a444102a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SWaiting.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SWaiting.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Script/System/AudioSystem.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Script/System/AudioSystem.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MakeMeLaugh/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MakeMeLaugh/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Function/Draggable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Function/Draggable.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Function/NewBehaviourScript.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Function/NewBehaviourScript.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/DoctorManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/DoctorManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GamePage.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GamePage.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/CharacterPrefabs/Doctor.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/CharacterPrefabs/Doctor.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/CharacterPrefabs/Patient.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/CharacterPrefabs/Patient.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Prefabs/HappyBedParent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Prefabs/HappyBedParent.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/Data/PatientAttributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Data/PatientAttributes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/EventManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/PaientManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/PaientManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/Manager/UnitManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/Manager/UnitManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Script/State/States/DoctorStates/SDocSelectable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/State/States/DoctorStates/SDocSelectable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/MouseDrag.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/MouseDrag.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/Shader.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SCry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SCry.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SLaugh.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SLaugh.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SSelectable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SSelectable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SSettled.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SSettled.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Script/State/States/StateID.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Script/State/States/StateID.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +46,6 @@
     <setting file="file://$USER_HOME$/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/32f698e75748e9bb5341498470874aa7/Message/MessageTemp/d55fc09bf25bed5a06fb44775230dbfd/File/SSelectable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Script/Manager/DoctorManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Script/Manager/UnitManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/_Script/MouseDrag.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Script/State/StateMachine/PatientSM.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/_Script/Test.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.burst@1.8.10/Runtime/Editor/BurstCompileTarget.cs" root0="SKIP_HIGHLIGHTING" />
@@ -130,7 +142,7 @@
       <workItem from="1706201604491" duration="20941000" />
       <workItem from="1706319784720" duration="20082000" />
       <workItem from="1706345045428" duration="32841000" />
-      <workItem from="1706389684662" duration="4231000" />
+      <workItem from="1706389684662" duration="14441000" />
     </task>
     <servers />
   </component>
@@ -150,19 +162,6 @@
           <line>71</line>
           <properties documentPath="$PROJECT_DIR$/Assets/_Scripts/Manager/PaientManager.cs" initialLine="54" containingFunctionPresentation="Method 'changeEffectFactors'" />
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SSelectable.cs</url>
-          <line>77</line>
-          <properties documentPath="$PROJECT_DIR$/Assets/_Script/State/States/PatientStates/SSelectable.cs" initialLine="77" containingFunctionPresentation="Method 'OnExit'">
-            <startOffsets>
-              <option value="2294" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2367" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
