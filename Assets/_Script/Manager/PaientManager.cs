@@ -17,24 +17,14 @@ public class PaientManager : UnitManager
     private Collider[] hitColliders;
     private Vector3 originalPosition;
     
-    //TODO: 改写成系统自动检测到GM
-    //
-    //public Draggable Draggable;
 
     public float treatingForce;
     public DoctorManager TreatingDoctor;
-    
     private void Awake()
     {
         originalPosition = this.transform.position;
 //        print("Awake"+originalPosition);
         base.Awake();
-//        Debug.Log("Awake");
-        //TODO:目前方便测试，后续改回来
-        //patientAttributes = new PatientAttributes();
-        // if (m_SendThisToGM == null)
-        //     m_SendThisToGM = new UnityEvent<Transform>();
-        // m_SendThisToGM.AddListener(GameManager);
 
         //GameManager.OnBeforeStateChanged += OnStateChanged;
         //新建状态机
@@ -146,6 +136,11 @@ public class PaientManager : UnitManager
     {
         hitColliders = Physics.OverlapSphere(transform.position, patientAttributes.checkRadius, bedLayer);
         return hitColliders.Length > 0;
+    }
+
+    public Collider[] GetNearBeds()
+    {
+        return Physics.OverlapSphere(transform.position, patientAttributes.checkRadius, bedLayer);
     }
 
     public Vector3 GetBedPosition()
