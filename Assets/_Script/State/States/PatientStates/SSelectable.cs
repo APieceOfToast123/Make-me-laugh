@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using _Scripts.State;
 using UnityEngine;
 using UnityEngine.Events;
@@ -78,24 +79,33 @@ public class SSelectable : BasicState
         if (dragging && Input.GetMouseButtonUp(0))
         {
             dragging = false;
-            if (pm.CheckNearbyBeds())
+            if (pm.CheckNearbyBeds() != null)
             {
                 sm.ChangeState(StateID.Normal);
-                pm.transform.position = pm.GetNearBeds()[0].transform.position;
+//                GameManager.SettledBeds.Add(pm.hitColliders[0].gameObject);
+                //pm.transform.position = pm.GetNearBeds()[0].transform.position;
             }
         }
-        if (timer <= 0)
-        {
-            // 计时结束，改变状态
-            pm.patientAttributes.mood = 39;
-            sm.ChangeState(StateID.Cry);
-        }
+        // if (timer <= 0)
+        // {
+        //     // 计时结束，改变状态
+        //     pm.patientAttributes.mood = 39;
+        //     sm.ChangeState(StateID.Cry);
+        //     
+        //     // 获取存在于list1中但不在list2中的元素
+        //     List<GameObject> difference = ObjectPlacer.placedGameObjects.Except(GameManager.SettledBeds).ToList();
+        //     if (difference.Count >0)
+        //     {
+        //         pm.transform.position = difference[0].transform.position;
+        //         EventManager.CallTrySettlePatient(true);
+        //     }
+        // }
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        //EventManager.CallTrySettlePatient(pm.CheckNearbyBeds());
+        EventManager.CallTrySettlePatient(pm.CheckNearbyBeds());
         EventManager.CallAddSettledOne(sm.OwnerGo.GetComponent<PaientManager>());
         EventManager.CallFirstOneSetteld();
     }
